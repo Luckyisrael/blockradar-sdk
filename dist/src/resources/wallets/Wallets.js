@@ -36,6 +36,14 @@ export class Wallets {
         const qs = toQueryString(opts);
         return this.http.get(`/wallets/${id}/webhooks${qs}`);
     }
+    /** Retrieves a swap quote for the master wallet. */
+    getSwapQuote(id, body) {
+        return this.http.post(`/wallets/${id}/swaps/quote`, body);
+    }
+    /** Executes a swap from the master wallet. */
+    executeSwap(id, body) {
+        return this.http.post(`/wallets/${id}/swaps/execute`, body);
+    }
     /**
      * Calculates network fee for a prospective withdrawal.
      * Use POST; GET would return 404 for this route.

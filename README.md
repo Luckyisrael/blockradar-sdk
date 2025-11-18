@@ -1,4 +1,4 @@
-# An Unofficial Blockradar TypeScript SDK
+# Blockradar TypeScript SDK
 
 An un-official Type-safe SDK for the Blockradar REST API.
 
@@ -21,6 +21,8 @@ An un-official Type-safe SDK for the Blockradar REST API.
   - `POST /wallets/{walletId}/withdraw/network-fee` → `client.wallets.getWithdrawNetworkFee(id, body)`
   - `POST /wallets/{walletId}/withdraw` → `client.wallets.withdraw(id, body)` (single or batch)
   - `POST /wallets/{walletId}/withdraw/sign` → `client.wallets.withdrawSignOnly(id, body)`
+  - `POST /wallets/{walletId}/swaps/quote` → `client.wallets.getSwapQuote(id, body)`
+  - `POST /wallets/{walletId}/swaps/execute` → `client.wallets.executeSwap(id, body)`
 - Addresses
   - `GET /wallets/{walletId}/addresses` → `client.addresses.getAddresses(walletId, { page?, limit? })`
   - `POST /wallets/{walletId}/addresses` → `client.addresses.generateAddress(walletId, body)`
@@ -33,6 +35,8 @@ An un-official Type-safe SDK for the Blockradar REST API.
   - `POST /wallets/{walletId}/addresses/{addressId}/withdraw` → `client.addresses.withdraw(walletId, addressId, body)`
   - `POST /wallets/{walletId}/addresses/{addressId}/withdraw/sign` → `client.addresses.withdrawSignOnly(walletId, addressId, body)`
   - `POST /wallets/{walletId}/addresses/{addressId}/withdraw/network-fee` → `client.addresses.getWithdrawNetworkFee(walletId, addressId, body)`
+  - `POST /wallets/{walletId}/addresses/{addressId}/swaps/quote` → `client.addresses.getSwapQuote(walletId, addressId, body)`
+  - `POST /wallets/{walletId}/addresses/{addressId}/swaps/execute` → `client.addresses.executeSwap(walletId, addressId, body)`
 
 ## Installation
 ```

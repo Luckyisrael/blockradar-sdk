@@ -2,6 +2,7 @@ import { HttpClient } from '../../client/HttpClient';
 import { ApiResponse } from '../../types/api';
 import { Wallet, WalletBalance, WalletBalancesItem, WebhookLog } from '../../types/wallets';
 import { WithdrawNetworkFee, WithdrawRequest, WithdrawTransaction } from '../../types/withdrawals';
+import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps';
 /** Wallet-related operations for the master wallet. */
 export declare class Wallets {
     private http;
@@ -41,6 +42,10 @@ export declare class Wallets {
         page?: number | string;
         limit?: number | string;
     }): Promise<ApiResponse<WebhookLog[]>>;
+    /** Retrieves a swap quote for the master wallet. */
+    getSwapQuote(id: string, body: SwapQuoteRequest): Promise<ApiResponse<SwapQuote>>;
+    /** Executes a swap from the master wallet. */
+    executeSwap(id: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>>;
     /**
      * Calculates network fee for a prospective withdrawal.
      * Use POST; GET would return 404 for this route.

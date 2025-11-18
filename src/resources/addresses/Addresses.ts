@@ -3,6 +3,7 @@ import { ApiResponse } from '../../types/api'
 import { toQueryString } from '../../utils/serialization'
 import { Address, AddressBalance, AddressBalancesItem } from '../../types/addresses'
 import { WithdrawRequest, WithdrawTransaction, WithdrawNetworkFee, WithdrawSignResult } from '../../types/withdrawals'
+import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps'
 
 /** Address-related operations under a wallet. */
 export class Addresses {
@@ -100,5 +101,13 @@ export class Addresses {
    */
   getWithdrawNetworkFee(walletId: string, addressId: string, body: { assetId: string; address: string; amount: string; reference?: string; note?: string; metadata?: Record<string, unknown> }): Promise<ApiResponse<WithdrawNetworkFee>> {
     return this.http.post<ApiResponse<WithdrawNetworkFee>>(`/wallets/${walletId}/addresses/${addressId}/withdraw/network-fee`, body)
+  }
+  /** Retrieves a swap quote for a child address. */
+  getSwapQuote(walletId: string, addressId: string, body: SwapQuoteRequest): Promise<ApiResponse<SwapQuote>> {
+    return this.http.post<ApiResponse<SwapQuote>>(`/wallets/${walletId}/addresses/${addressId}/swaps/quote`, body)
+  }
+  /** Executes a swap from a child address. */
+  executeSwap(walletId: string, addressId: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>> {
+    return this.http.post<ApiResponse<SwapTransaction>>(`/wallets/${walletId}/addresses/${addressId}/swaps/execute`, body)
   }
 }

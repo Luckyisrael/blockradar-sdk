@@ -1,13 +1,10 @@
 import { BlockradarClient } from '../src';
 async function run() {
-    const client = new BlockradarClient({ apiKey: 'test_key', environment: 'test' });
-    try {
-        const res = await client.wallets.getWallet('wallet_id');
-        console.log(res.message);
-    }
-    catch (e) {
-        console.error(String(e));
-    }
+    const apiKey = process.env.BLOCKRADAR_API_KEY_TEST || 'YOUR_TEST_KEY';
+    const walletId = process.env.BLOCKRADAR_WALLET_ID || 'YOUR_WALLET_ID';
+    const client = new BlockradarClient({ apiKey, environment: 'test' });
+    const wallet = await client.wallets.getWallet(walletId);
+    console.log(wallet.message);
 }
 run();
 //# sourceMappingURL=quickstart.js.map

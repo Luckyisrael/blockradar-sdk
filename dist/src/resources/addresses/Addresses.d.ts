@@ -2,6 +2,7 @@ import { HttpClient } from '../../client/HttpClient';
 import { ApiResponse } from '../../types/api';
 import { Address, AddressBalance, AddressBalancesItem } from '../../types/addresses';
 import { WithdrawRequest, WithdrawTransaction, WithdrawNetworkFee, WithdrawSignResult } from '../../types/withdrawals';
+import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps';
 /** Address-related operations under a wallet. */
 export declare class Addresses {
     private http;
@@ -84,4 +85,8 @@ export declare class Addresses {
         note?: string;
         metadata?: Record<string, unknown>;
     }): Promise<ApiResponse<WithdrawNetworkFee>>;
+    /** Retrieves a swap quote for a child address. */
+    getSwapQuote(walletId: string, addressId: string, body: SwapQuoteRequest): Promise<ApiResponse<SwapQuote>>;
+    /** Executes a swap from a child address. */
+    executeSwap(walletId: string, addressId: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>>;
 }

@@ -3,6 +3,7 @@ import { ApiResponse } from '../../types/api'
 import { toQueryString } from '../../utils/serialization'
 import { Wallet, WalletBalance, WalletBalancesItem, WebhookLog } from '../../types/wallets'
 import { WithdrawNetworkFee, WithdrawRequest, WithdrawTransaction } from '../../types/withdrawals'
+import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps'
 
 
 /** Wallet-related operations for the master wallet. */
@@ -42,6 +43,14 @@ export class Wallets {
   getWebhookLogs(id: string, opts?: { page?: number | string; limit?: number | string }): Promise<ApiResponse<WebhookLog[]>> {
     const qs = toQueryString(opts)
     return this.http.get<ApiResponse<WebhookLog[]>>(`/wallets/${id}/webhooks${qs}`)
+  }
+  /** Retrieves a swap quote for the master wallet. */
+  getSwapQuote(id: string, body: SwapQuoteRequest): Promise<ApiResponse<SwapQuote>> {
+    return this.http.post<ApiResponse<SwapQuote>>(`/wallets/${id}/swaps/quote`, body)
+  }
+  /** Executes a swap from the master wallet. */
+  executeSwap(id: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>> {
+    return this.http.post<ApiResponse<SwapTransaction>>(`/wallets/${id}/swaps/execute`, body)
   }
   /**
    * Calculates network fee for a prospective withdrawal.

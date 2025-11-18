@@ -69,5 +69,13 @@ export class Addresses {
     getWithdrawNetworkFee(walletId, addressId, body) {
         return this.http.post(`/wallets/${walletId}/addresses/${addressId}/withdraw/network-fee`, body);
     }
+    /** Retrieves a swap quote for a child address. */
+    getSwapQuote(walletId, addressId, body) {
+        return this.http.post(`/wallets/${walletId}/addresses/${addressId}/swaps/quote`, body);
+    }
+    /** Executes a swap from a child address. */
+    executeSwap(walletId, addressId, body) {
+        return this.http.post(`/wallets/${walletId}/addresses/${addressId}/swaps/execute`, body);
+    }
 }
 //# sourceMappingURL=Addresses.js.map
