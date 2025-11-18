@@ -5,6 +5,7 @@ import { Wallet, WalletBalance, WalletBalancesItem, WebhookLog } from '../../typ
 import { WithdrawNetworkFee, WithdrawRequest, WithdrawTransaction } from '../../types/withdrawals'
 import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps'
 import { VirtualAccount, VirtualAccountCreateMasterRequest, VirtualAccountUpdateRequest } from '../../types/virtualAccounts'
+import { ContractCallRequest, ContractNetworkFee } from '../../types/contracts'
 
 
 /** Wallet-related operations for the master wallet. */
@@ -83,5 +84,13 @@ export class Wallets {
    */
   withdrawSignOnly(id: string, body: WithdrawRequest): Promise<ApiResponse<{ errors: unknown[]; success: WithdrawTransaction[] }>> {
     return this.http.post<ApiResponse<{ errors: unknown[]; success: WithdrawTransaction[] }>>(`/wallets/${id}/withdraw/sign`, body)
+  }
+  /** Estimates network fee for a custom smart contract call. */
+  getContractNetworkFee(id: string, body: ContractCallRequest): Promise<ApiResponse<ContractNetworkFee>> {
+    return this.http.post<ApiResponse<ContractNetworkFee>>(`/wallets/${id}/contracts/network-fee`, body)
+  }
+  /** Reads data from a custom smart contract. */
+  readContract(id: string, body: ContractCallRequest): Promise<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(`/wallets/${id}/contracts/read`, body)
   }
 }

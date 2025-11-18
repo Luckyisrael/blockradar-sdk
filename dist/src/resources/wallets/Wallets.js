@@ -75,5 +75,13 @@ export class Wallets {
     withdrawSignOnly(id, body) {
         return this.http.post(`/wallets/${id}/withdraw/sign`, body);
     }
+    /** Estimates network fee for a custom smart contract call. */
+    getContractNetworkFee(id, body) {
+        return this.http.post(`/wallets/${id}/contracts/network-fee`, body);
+    }
+    /** Reads data from a custom smart contract. */
+    readContract(id, body) {
+        return this.http.post(`/wallets/${id}/contracts/read`, body);
+    }
 }
 //# sourceMappingURL=Wallets.js.map

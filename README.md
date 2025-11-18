@@ -26,6 +26,8 @@ An un-official Type-safe SDK for the Blockradar REST API.
   - `GET /wallets/{walletId}/virtual-accounts` → `client.wallets.getVirtualAccount(id)`
   - `POST /wallets/{walletId}/virtual-accounts` → `client.wallets.createVirtualAccount(id, body)`
   - `PATCH /wallets/{walletId}/virtual-accounts/{id}` → `client.wallets.updateVirtualAccount(walletId, id, body)`
+  - `POST /wallets/{walletId}/contracts/network-fee` → `client.wallets.getContractNetworkFee(id, body)`
+  - `POST /wallets/{walletId}/contracts/read` → `client.wallets.readContract(id, body)`
 - Addresses
   - `GET /wallets/{walletId}/addresses` → `client.addresses.getAddresses(walletId, { page?, limit? })`
   - `POST /wallets/{walletId}/addresses` → `client.addresses.generateAddress(walletId, body)`
@@ -85,6 +87,16 @@ console.log(va.data.accountNumber)
 
 const vaCreate = await client.wallets.createVirtualAccount(walletId, { email: 'user@example.com', firstname: 'First', lastname: 'Last', phone: '+2347000000000' })
 console.log(vaCreate.statusCode)
+
+const feeCall = await client.wallets.getContractNetworkFee(walletId, {
+  address: 'CONTRACT_ADDRESS', method: 'transfer', parameters: ['RECIPIENT', '10000'], abi: []
+})
+console.log(feeCall.data.fee)
+
+const readCall = await client.wallets.readContract(walletId, {
+  address: 'CONTRACT_ADDRESS', method: 'totalSupply()', parameters: [], abi: []
+})
+console.log(readCall.data)
 ```
 
 ### Addresses

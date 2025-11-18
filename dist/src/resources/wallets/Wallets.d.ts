@@ -4,6 +4,7 @@ import { Wallet, WalletBalance, WalletBalancesItem, WebhookLog } from '../../typ
 import { WithdrawNetworkFee, WithdrawRequest, WithdrawTransaction } from '../../types/withdrawals';
 import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps';
 import { VirtualAccount, VirtualAccountCreateMasterRequest, VirtualAccountUpdateRequest } from '../../types/virtualAccounts';
+import { ContractCallRequest, ContractNetworkFee } from '../../types/contracts';
 /** Wallet-related operations for the master wallet. */
 export declare class Wallets {
     private http;
@@ -76,4 +77,8 @@ export declare class Wallets {
         errors: unknown[];
         success: WithdrawTransaction[];
     }>>;
+    /** Estimates network fee for a custom smart contract call. */
+    getContractNetworkFee(id: string, body: ContractCallRequest): Promise<ApiResponse<ContractNetworkFee>>;
+    /** Reads data from a custom smart contract. */
+    readContract(id: string, body: ContractCallRequest): Promise<ApiResponse<string>>;
 }
