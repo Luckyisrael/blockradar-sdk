@@ -77,5 +77,17 @@ export class Addresses {
     executeSwap(walletId, addressId, body) {
         return this.http.post(`/wallets/${walletId}/addresses/${addressId}/swaps/execute`, body);
     }
+    /** Retrieves the virtual account associated with a child address. */
+    getVirtualAccount(walletId, addressId) {
+        return this.http.get(`/wallets/${walletId}/addresses/${addressId}/virtual-accounts`);
+    }
+    /** Creates a virtual account under a child address. */
+    createVirtualAccount(walletId, addressId, body) {
+        return this.http.post(`/wallets/${walletId}/addresses/${addressId}/virtual-accounts`, body);
+    }
+    /** Updates a virtual account under a child address. */
+    updateVirtualAccount(walletId, addressId, virtualAccountId, body) {
+        return this.http.patch(`/wallets/${walletId}/addresses/${addressId}/virtual-accounts/${virtualAccountId}`, body);
+    }
 }
 //# sourceMappingURL=Addresses.js.map

@@ -44,6 +44,18 @@ export class Wallets {
     executeSwap(id, body) {
         return this.http.post(`/wallets/${id}/swaps/execute`, body);
     }
+    /** Retrieves the virtual account associated with a master wallet. */
+    getVirtualAccount(id) {
+        return this.http.get(`/wallets/${id}/virtual-accounts`);
+    }
+    /** Creates a virtual account within a master wallet. */
+    createVirtualAccount(id, body) {
+        return this.http.post(`/wallets/${id}/virtual-accounts`, body);
+    }
+    /** Updates a virtual account under a master wallet. */
+    updateVirtualAccount(walletId, virtualAccountId, body) {
+        return this.http.patch(`/wallets/${walletId}/virtual-accounts/${virtualAccountId}`, body);
+    }
     /**
      * Calculates network fee for a prospective withdrawal.
      * Use POST; GET would return 404 for this route.

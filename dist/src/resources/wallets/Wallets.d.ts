@@ -3,6 +3,7 @@ import { ApiResponse } from '../../types/api';
 import { Wallet, WalletBalance, WalletBalancesItem, WebhookLog } from '../../types/wallets';
 import { WithdrawNetworkFee, WithdrawRequest, WithdrawTransaction } from '../../types/withdrawals';
 import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps';
+import { VirtualAccount, VirtualAccountCreateMasterRequest, VirtualAccountUpdateRequest } from '../../types/virtualAccounts';
 /** Wallet-related operations for the master wallet. */
 export declare class Wallets {
     private http;
@@ -46,6 +47,12 @@ export declare class Wallets {
     getSwapQuote(id: string, body: SwapQuoteRequest): Promise<ApiResponse<SwapQuote>>;
     /** Executes a swap from the master wallet. */
     executeSwap(id: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>>;
+    /** Retrieves the virtual account associated with a master wallet. */
+    getVirtualAccount(id: string): Promise<ApiResponse<VirtualAccount>>;
+    /** Creates a virtual account within a master wallet. */
+    createVirtualAccount(id: string, body: VirtualAccountCreateMasterRequest): Promise<ApiResponse<VirtualAccount>>;
+    /** Updates a virtual account under a master wallet. */
+    updateVirtualAccount(walletId: string, virtualAccountId: string, body: VirtualAccountUpdateRequest): Promise<ApiResponse<VirtualAccount>>;
     /**
      * Calculates network fee for a prospective withdrawal.
      * Use POST; GET would return 404 for this route.

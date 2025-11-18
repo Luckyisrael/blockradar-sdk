@@ -23,6 +23,9 @@ An un-official Type-safe SDK for the Blockradar REST API.
   - `POST /wallets/{walletId}/withdraw/sign` → `client.wallets.withdrawSignOnly(id, body)`
   - `POST /wallets/{walletId}/swaps/quote` → `client.wallets.getSwapQuote(id, body)`
   - `POST /wallets/{walletId}/swaps/execute` → `client.wallets.executeSwap(id, body)`
+  - `GET /wallets/{walletId}/virtual-accounts` → `client.wallets.getVirtualAccount(id)`
+  - `POST /wallets/{walletId}/virtual-accounts` → `client.wallets.createVirtualAccount(id, body)`
+  - `PATCH /wallets/{walletId}/virtual-accounts/{id}` → `client.wallets.updateVirtualAccount(walletId, id, body)`
 - Addresses
   - `GET /wallets/{walletId}/addresses` → `client.addresses.getAddresses(walletId, { page?, limit? })`
   - `POST /wallets/{walletId}/addresses` → `client.addresses.generateAddress(walletId, body)`
@@ -37,6 +40,9 @@ An un-official Type-safe SDK for the Blockradar REST API.
   - `POST /wallets/{walletId}/addresses/{addressId}/withdraw/network-fee` → `client.addresses.getWithdrawNetworkFee(walletId, addressId, body)`
   - `POST /wallets/{walletId}/addresses/{addressId}/swaps/quote` → `client.addresses.getSwapQuote(walletId, addressId, body)`
   - `POST /wallets/{walletId}/addresses/{addressId}/swaps/execute` → `client.addresses.executeSwap(walletId, addressId, body)`
+  - `GET /wallets/{walletId}/addresses/{addressId}/virtual-accounts` → `client.addresses.getVirtualAccount(walletId, addressId)`
+  - `POST /wallets/{walletId}/addresses/{addressId}/virtual-accounts` → `client.addresses.createVirtualAccount(walletId, addressId, body)`
+  - `PATCH /wallets/{walletId}/addresses/{addressId}/virtual-accounts/{virtualAccountId}` → `client.addresses.updateVirtualAccount(walletId, addressId, virtualAccountId, body)`
 
 ## Installation
 ```
@@ -73,6 +79,12 @@ console.log(wallet.data.name)
 
 const fee = await client.wallets.getWithdrawNetworkFee(walletId, { assetId: 'ASSET_ID', address: 'RECIPIENT', amount: '1' })
 console.log(fee.data.networkFee)
+
+const va = await client.wallets.getVirtualAccount(walletId)
+console.log(va.data.accountNumber)
+
+const vaCreate = await client.wallets.createVirtualAccount(walletId, { email: 'user@example.com', firstname: 'First', lastname: 'Last', phone: '+2347000000000' })
+console.log(vaCreate.statusCode)
 ```
 
 ### Addresses
@@ -87,6 +99,12 @@ const addressId = String(created.data.id)
 
 const balance = await client.addresses.getBalance(walletId, addressId, { assetId: 'ASSET_ID' })
 console.log(balance.data.balance)
+
+const va2 = await client.addresses.getVirtualAccount(walletId, addressId)
+console.log(va2.data.accountNumber)
+
+const va2Create = await client.addresses.createVirtualAccount(walletId, addressId, { accountName: 'Customer', accountNumber: 'O157014963' })
+console.log(va2Create.statusCode)
 ```
 
 ### Withdrawals

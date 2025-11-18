@@ -4,6 +4,7 @@ import { toQueryString } from '../../utils/serialization'
 import { Address, AddressBalance, AddressBalancesItem } from '../../types/addresses'
 import { WithdrawRequest, WithdrawTransaction, WithdrawNetworkFee, WithdrawSignResult } from '../../types/withdrawals'
 import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps'
+import { VirtualAccount, VirtualAccountCreateAddressRequest, VirtualAccountUpdateRequest } from '../../types/virtualAccounts'
 
 /** Address-related operations under a wallet. */
 export class Addresses {
@@ -109,5 +110,17 @@ export class Addresses {
   /** Executes a swap from a child address. */
   executeSwap(walletId: string, addressId: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>> {
     return this.http.post<ApiResponse<SwapTransaction>>(`/wallets/${walletId}/addresses/${addressId}/swaps/execute`, body)
+  }
+  /** Retrieves the virtual account associated with a child address. */
+  getVirtualAccount(walletId: string, addressId: string): Promise<ApiResponse<VirtualAccount>> {
+    return this.http.get<ApiResponse<VirtualAccount>>(`/wallets/${walletId}/addresses/${addressId}/virtual-accounts`)
+  }
+  /** Creates a virtual account under a child address. */
+  createVirtualAccount(walletId: string, addressId: string, body: VirtualAccountCreateAddressRequest): Promise<ApiResponse<VirtualAccount>> {
+    return this.http.post<ApiResponse<VirtualAccount>>(`/wallets/${walletId}/addresses/${addressId}/virtual-accounts`, body)
+  }
+  /** Updates a virtual account under a child address. */
+  updateVirtualAccount(walletId: string, addressId: string, virtualAccountId: string, body: VirtualAccountUpdateRequest): Promise<ApiResponse<VirtualAccount>> {
+    return this.http.patch<ApiResponse<VirtualAccount>>(`/wallets/${walletId}/addresses/${addressId}/virtual-accounts/${virtualAccountId}`, body)
   }
 }

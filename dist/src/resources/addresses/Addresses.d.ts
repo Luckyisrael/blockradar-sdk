@@ -3,6 +3,7 @@ import { ApiResponse } from '../../types/api';
 import { Address, AddressBalance, AddressBalancesItem } from '../../types/addresses';
 import { WithdrawRequest, WithdrawTransaction, WithdrawNetworkFee, WithdrawSignResult } from '../../types/withdrawals';
 import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps';
+import { VirtualAccount, VirtualAccountCreateAddressRequest, VirtualAccountUpdateRequest } from '../../types/virtualAccounts';
 /** Address-related operations under a wallet. */
 export declare class Addresses {
     private http;
@@ -89,4 +90,10 @@ export declare class Addresses {
     getSwapQuote(walletId: string, addressId: string, body: SwapQuoteRequest): Promise<ApiResponse<SwapQuote>>;
     /** Executes a swap from a child address. */
     executeSwap(walletId: string, addressId: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>>;
+    /** Retrieves the virtual account associated with a child address. */
+    getVirtualAccount(walletId: string, addressId: string): Promise<ApiResponse<VirtualAccount>>;
+    /** Creates a virtual account under a child address. */
+    createVirtualAccount(walletId: string, addressId: string, body: VirtualAccountCreateAddressRequest): Promise<ApiResponse<VirtualAccount>>;
+    /** Updates a virtual account under a child address. */
+    updateVirtualAccount(walletId: string, addressId: string, virtualAccountId: string, body: VirtualAccountUpdateRequest): Promise<ApiResponse<VirtualAccount>>;
 }

@@ -4,6 +4,7 @@ import { toQueryString } from '../../utils/serialization'
 import { Wallet, WalletBalance, WalletBalancesItem, WebhookLog } from '../../types/wallets'
 import { WithdrawNetworkFee, WithdrawRequest, WithdrawTransaction } from '../../types/withdrawals'
 import { SwapQuoteRequest, SwapQuote, SwapExecuteRequest, SwapTransaction } from '../../types/swaps'
+import { VirtualAccount, VirtualAccountCreateMasterRequest, VirtualAccountUpdateRequest } from '../../types/virtualAccounts'
 
 
 /** Wallet-related operations for the master wallet. */
@@ -51,6 +52,18 @@ export class Wallets {
   /** Executes a swap from the master wallet. */
   executeSwap(id: string, body: SwapExecuteRequest): Promise<ApiResponse<SwapTransaction>> {
     return this.http.post<ApiResponse<SwapTransaction>>(`/wallets/${id}/swaps/execute`, body)
+  }
+  /** Retrieves the virtual account associated with a master wallet. */
+  getVirtualAccount(id: string): Promise<ApiResponse<VirtualAccount>> {
+    return this.http.get<ApiResponse<VirtualAccount>>(`/wallets/${id}/virtual-accounts`)
+  }
+  /** Creates a virtual account within a master wallet. */
+  createVirtualAccount(id: string, body: VirtualAccountCreateMasterRequest): Promise<ApiResponse<VirtualAccount>> {
+    return this.http.post<ApiResponse<VirtualAccount>>(`/wallets/${id}/virtual-accounts`, body)
+  }
+  /** Updates a virtual account under a master wallet. */
+  updateVirtualAccount(walletId: string, virtualAccountId: string, body: VirtualAccountUpdateRequest): Promise<ApiResponse<VirtualAccount>> {
+    return this.http.patch<ApiResponse<VirtualAccount>>(`/wallets/${walletId}/virtual-accounts/${virtualAccountId}`, body)
   }
   /**
    * Calculates network fee for a prospective withdrawal.
