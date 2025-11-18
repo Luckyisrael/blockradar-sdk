@@ -57,6 +57,76 @@ console.log(wallet.message)
 - `examples/wallets.ts` wallet operations, webhooks, withdraws
 - `examples/addresses.ts` address CRUD, whitelist
 - `examples/withdrawals.ts` withdraw network fee, single/batch, sign-only
+- `examples/swaps.ts` swap quote and execute
+
+## Usage Examples
+
+### Wallets
+```ts
+import { BlockradarClient } from 'blockradar-sdk'
+
+const client = new BlockradarClient({ apiKey: process.env.BLOCKRADAR_API_KEY!, environment: 'test' })
+const walletId = process.env.BLOCKRADAR_WALLET_ID!
+
+const wallet = await client.wallets.getWallet(walletId)
+console.log(wallet.data.name)
+
+const fee = await client.wallets.getWithdrawNetworkFee(walletId, { assetId: 'ASSET_ID', address: 'RECIPIENT', amount: '1' })
+console.log(fee.data.networkFee)
+```
+
+### Addresses
+```ts
+import { BlockradarClient } from 'blockradar-sdk'
+
+const client = new BlockradarClient({ apiKey: process.env.BLOCKRADAR_API_KEY!, environment: 'test' })
+const walletId = process.env.BLOCKRADAR_WALLET_ID!
+
+const created = await client.addresses.generateAddress(walletId, { name: 'Customer 1' })
+const addressId = String(created.data.id)
+
+const balance = await client.addresses.getBalance(walletId, addressId, { assetId: 'ASSET_ID' })
+console.log(balance.data.balance)
+```
+
+### Withdrawals
+```ts
+import { BlockradarClient } from 'blockradar-sdk'
+
+const client = new BlockradarClient({ apiKey: process.env.BLOCKRADAR_API_KEY!, environment: 'test' })
+const walletId = process.env.BLOCKRADAR_WALLET_ID!
+
+const single = await client.wallets.withdraw(walletId, { assetId: 'ASSET_ID', address: 'RECIPIENT', amount: '1' })
+console.log(single.statusCode)
+
+const signed = await client.wallets.withdrawSignOnly(walletId, { assets: [{ id: 'ASSET_ID', address: 'RECIPIENT', amount: '0.5' }] })
+console.log(signed.message)
+```
+
+### Swaps
+```ts
+import { BlockradarClient } from 'blockradar-sdk'
+
+const client = new BlockradarClient({ apiKey: process.env.BLOCKRADAR_API_KEY!, environment: 'test' })
+const walletId = process.env.BLOCKRADAR_WALLET_ID!
+
+const quote = await client.wallets.getSwapQuote(walletId, { fromAssetId: 'FROM_ASSET_ID', toAssetId: 'TO_ASSET_ID', amount: '1000', order: 'RECOMMENDED' })
+console.log(quote.data.rate)
+
+const tx = await client.wallets.executeSwap(walletId, { fromAssetId: 'FROM_ASSET_ID', toAssetId: 'TO_ASSET_ID', amount: '1000', order: 'RECOMMENDED', reference: 'swap-01' })
+console.log(tx.statusCode)
+```
+
+### Webhook Logs
+```ts
+import { BlockradarClient } from 'blockradar-sdk'
+
+const client = new BlockradarClient({ apiKey: process.env.BLOCKRADAR_API_KEY!, environment: 'test' })
+const walletId = process.env.BLOCKRADAR_WALLET_ID!
+
+const logs = await client.wallets.getWebhookLogs(walletId, { page: 1, limit: 10 })
+console.log(Array.isArray(logs.data) ? logs.data.length : 0)
+```
 
 ## Testing
 - Unit tests: `npm test`
