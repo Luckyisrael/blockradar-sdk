@@ -1,0 +1,23 @@
+import { ClientConfig, DEFAULT_BASE_URLS, Environment } from './config'
+import { HttpClient } from './HttpClient'
+import { Wallets } from '../resources/wallets/Wallets'
+import { Addresses } from '../resources/addresses/Addresses'
+
+/**
+ * High-level SDK entrypoint. Manages environment/base URL and exposes resource modules.
+ */
+export class BlockradarClient {
+  readonly config: Required<Pick<ClientConfig, 'apiKey'>> & { environment: Environment; baseUrl: string; timeoutMs: number }
+  readonly http: HttpClient
+  readonly wallets: Wallets
+  readonly addresses: Addresses
+  constructor(config: ClientConfig) {
+    const env = config.environment ?? 'test'
+    const baseUrl = (config.baseUrl ?? DEFAULT_BASE_URLS[env]).replace(/\/+$/, '')
+    const timeoutMs = config.timeoutMs ?? 30000
+    this.config = { apiKey: config.apiKey, environment: env, baseUrl, timeoutMs }
+    this.http = new HttpClient(baseUrl, config.apiKey, timeoutMs, config.fetch)
+    this.wallets = new Wallets(this.http)
+    this.addresses = new Addresses(this.http)
+  }
+}

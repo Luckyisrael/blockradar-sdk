@@ -1,0 +1,59 @@
+import { toQueryString } from '../../utils/serialization';
+/** Wallet-related operations for the master wallet. */
+export class Wallets {
+    constructor(http) {
+        this.http = http;
+    }
+    /** Retrieves a wallet by ID. */
+    getWallet(id, opts) {
+        const qs = toQueryString(opts);
+        return this.http.get(`/wallets/${id}${qs}`);
+    }
+    /** Retrieves balance for a given wallet, optionally scoped by `assetId`. */
+    getBalance(id, opts) {
+        const qs = toQueryString(opts);
+        return this.http.get(`/wallets/${id}/balance${qs}`);
+    }
+    /** Retrieves balances for a wallet (list). */
+    getBalances(id, opts) {
+        const qs = toQueryString(opts);
+        return this.http.get(`/wallets/${id}/balances${qs}`);
+    }
+    /** Updates wallet metadata or settings. */
+    updateWallet(id, body) {
+        return this.http.patch(`/wallets/${id}`, body);
+    }
+    /** Initiates a block rescan for a wallet. */
+    rescanBlocks(id, body) {
+        return this.http.post(`/wallets/${id}/rescan/blocks`, body);
+    }
+    /** Triggers sweeping of unswept assets. */
+    triggerSweepAssets(id, body) {
+        return this.http.post(`/wallets/${id}/sweep/assets`, body);
+    }
+    /** Retrieves webhook logs for a wallet. */
+    getWebhookLogs(id, opts) {
+        const qs = toQueryString(opts);
+        return this.http.get(`/wallets/${id}/webhooks${qs}`);
+    }
+    /**
+     * Calculates network fee for a prospective withdrawal.
+     * Use POST; GET would return 404 for this route.
+     */
+    getWithdrawNetworkFee(id, body) {
+        return this.http.post(`/wallets/${id}/withdraw/network-fee`, body);
+    }
+    /**
+     * Initiates a withdrawal from the master wallet. Supports single or batch format.
+     */
+    withdraw(id, body) {
+        return this.http.post(`/wallets/${id}/withdraw`, body);
+    }
+    /**
+     * Signs a withdrawal without broadcasting, returning signed transactions per asset.
+     */
+    withdrawSignOnly(id, body) {
+        return this.http.post(`/wallets/${id}/withdraw/sign`, body);
+    }
+}
+//# sourceMappingURL=Wallets.js.map
