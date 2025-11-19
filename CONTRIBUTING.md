@@ -44,7 +44,7 @@ Optional integration tests:
 - Do not push directly to `main`
 - Use feature branches: `feat/<short-feature-name>`, `fix/<short>`, etc.
 - Push to `develop` (or a feature branch) and open PRs into `main`
-- Require at least 1 review approval and all tests passing
+- Require at least 1 review approval
 - Prefer squash-and-merge with Conventional Commit PR titles:
   - `feat(module): add X`
   - `fix(module): correct Y`

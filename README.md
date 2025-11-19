@@ -168,4 +168,5 @@ console.log(Array.isArray(logs.data) ? logs.data.length : 0)
 
 ## Contributing
 - PR-only workflow: push to `develop` or feature branches and open PRs into `main`.
-- See `CONTRIBUTING.md` for setup, guidelines, branch protection steps, and PR checklist.
+- Require at least one review approval before merging; status checks are optional.
+- See `CONTRIBUTING.md` for setup, guidelines, and PR checklist.
