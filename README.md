@@ -167,4 +167,4 @@ console.log(Array.isArray(logs.data) ? logs.data.length : 0)
 - Unauthorized returns `{"statusCode":401,"message":"Unauthorized"}`.
 
 ## Contributing
-- Open PRs with tests and documentation.
+- See `CONTRIBUTING.md` for setup, guidelines, and PR checklist.
