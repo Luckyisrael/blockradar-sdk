@@ -167,4 +167,6 @@ console.log(Array.isArray(logs.data) ? logs.data.length : 0)
 - Unauthorized returns `{"statusCode":401,"message":"Unauthorized"}`.
 
 ## Contributing
+- PR-only workflow: push to `develop` or feature branches and open PRs into `main`.
+- Require at least one review approval before merging; status checks are optional.
 - See `CONTRIBUTING.md` for setup, guidelines, and PR checklist.
