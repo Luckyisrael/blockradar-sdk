@@ -60,19 +60,6 @@ Optional integration tests:
 - Never commit API keys, secrets, or `.env` files
 - `.gitignore` excludes `.env`, `node_modules`, `dist`, `.trae/`
 
-## Branch Protection (Maintainers)
-Enable branch protections on GitHub for `main`:
-1. GitHub → Repository → Settings → Branches → Branch protection rules → Add rule
-2. Branch name pattern: `main`
-3. Check “Require a pull request before merging” and set required number of approvals
-4. Check “Require status checks to pass before merging” and select the GitHub Actions job named `test` from the `CI` workflow
-5. Check “Restrict who can push to matching branches” to disallow direct pushes
-6. Save changes
-
-Notes:
-- If you see “Required status checks cannot be empty”, ensure the CI workflow is present and has run at least once on a PR or push. Then select the `test` check in branch protection.
-- Optionally enable “Require branches to be up to date before merging” to ensure merges use the latest commits.
-
 ## Pull Request Checklist
 - [ ] Strictly typed inputs/outputs for new functions
 - [ ] JSDoc comments for new public APIs
